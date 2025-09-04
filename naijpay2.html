@@ -1,0 +1,2675 @@
+<!-- Transfer Page -->
+        <div id="transfer" class="page">
+            <section class="container" style="padding: 2rem 0;">
+                <div class="card" style="max-width: 600px; margin: 0 auto;">
+                    <div class="card-header">
+                        <h2 class="card-title">Transfer Money</h2>
+                    </div>
+                    <form onsubmit="handleTransfer(event)">
+                        <div class="form-group">
+                            <label class="form-label">Transfer Type</label>
+                            <select class="form-input form-select" id="transferType" onchange="toggleTransferFields()">
+                                <option value="local">Local Transfer (Within NaijaPay)</option>
+                                <option value="domestic">Domestic Transfer (Other Nigerian Banks)</option>
+                                <option value="international">International Transfer</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Recipient Account Number</label>
+                            <input type="text" class="form-input" id="recipientAccount" required>
+                        </div>
+
+                        <div class="form-group" id="bankField" style="display: none;">
+                            <label class="form-label">Recipient Bank</label>
+                            <input type="text" class="form-input" id="bankSearch" placeholder="Search for bank..." oninput="searchBanks()" style="margin-bottom: 10px;">
+                            <select class="form-input form-select" id="recipientBank">
+                                <option value="">Select Bank</option>
+                                <optgroup label="Commercial Banks">
+                                    <option value="gtb">Guaranty Trust Bank (GTB)</option>
+                                    <option value="uba">United Bank for Africa (UBA)</option>
+                                    <option value="zenith">Zenith Bank</option>
+                                    <option value="fidelity">Fidelity Bank</option>
+                                    <option value="fcmb">First City Monument Bank (FCMB)</option>
+                                    <option value="access">Access Bank</option>
+                                    <option value="first-bank">First Bank of Nigeria</option>
+                                    <option value="union-bank">Union Bank of Nigeria</option>
+                                    <option value="sterling">Sterling Bank</option>
+                                    <option value="stanbic">Stanbic IBTC Bank</option>
+                                    <option value="wema">Wema Bank</option>
+                                    <option value="unity">Unity Bank</option>
+                                    <option value="keystone">Keystone Bank</option>
+                                    <option value="providus">Providus Bank</option>
+                                    <option value="citibank">Citibank Nigeria</option>
+                                    <option value="ecobank">Ecobank Nigeria</option>
+                                    <option value="heritage">Heritage Bank</option>
+                                    <option value="polaris">Polaris Bank</option>
+                                    <option value="suntrust">SunTrust Bank</option>
+                                </optgroup>
+                                <optgroup label="Microfinance Banks">
+                                    <option value="opay">OPay</option>
+                                    <option value="palmpay">PalmPay</option>
+                                    <option value="moniepoint">Moniepoint</option>
+                                    <option value="kuda">Kuda Bank</option>
+                                    <option value="carbon">Carbon (Formerly Paylater)</option>
+                                    <option value="rubies">Rubies Bank</option>
+                                    <option value="sparkle">Sparkle Microfinance Bank</option>
+                                    <option value="renmoney">Renmoney</option>
+                                    <option value="gomoney">GoMoney</option>
+                                    <option value="alat">ALAT by Wema</option>
+                                    <option value="vbank">VBank</option>
+                                    <option value="eyowo">Eyowo</option>
+                                    <option value="paga">Paga</option>
+                                    <option value="quickteller">Quickteller Paypoint</option>
+                                    <option value="cowrywise">Cowrywise</option>
+                                    <option value="piggyvest">PiggyVest</option>
+                                </optgroup>
+                            </select>
+                        </div>
+
+                        <div class="form-group" id="countryField" style="display: none;">
+                            <label class="form-label">Recipient Country</label>
+                            <select class="form-input form-select" id="recipientCountry">
+                                <option value="">Select Country</option>
+                                <option value="usa">United States</option>
+                                <option value="uk">United Kingdom</option>
+                                <option value="canada">Canada</option>
+                                <option value="germany">Germany</option>
+                                <option value="france">France</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Recipient Name</label>
+                            <input type="text" class="form-input" id="recipientName" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Amount (₦)</label>
+                            <input type="number" class="form-input" id="transferAmount" step="0.01" min="1" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Description (Optional)</label>
+                            <input type="text" class="form-input" id="transferDescription" placeholder="What's this for?">
+                        </div>
+
+                        <button type="submit" class="btn btn-success" style="width: 100%;">
+                            Send Money
+                        </button>
+                    </form>
+                    <button class="btn btn-primary" onclick="showPage('dashboard')" style="width: 100%; margin-top: 1rem;">
+                        Back to Dashboard
+                    </button>
+                </div>
+            </section>
+        </div>
+
+        <!-- Deposit Page -->
+        <div id="deposit" class="page">
+            <section class="container" style="padding: 2rem 0;">
+                <div class="card" style="max-width: 600px; margin: 0 auto;">
+                    <div class="card-header">
+                        <h2 class="card-title">Mobile Check Deposit</h2>
+                    </div>
+                    <form onsubmit="handleCheckDeposit(event)">
+                        <div class="form-group">
+                            <label class="form-label">Check Amount (₦)</label>
+                            <input type="number" class="form-input" id="checkAmount" step="0.01" min="1" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Check Number</label>
+                            <input type="text" class="form-input" id="checkNumber" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Issuing Bank</label>
+                            <input type="text" class="form-input" id="issuingBankSearch" placeholder="Search for bank..." oninput="searchIssuingBanks()" style="margin-bottom: 10px;">
+                            <select class="form-input form-select" id="issuingBank" required>
+                                <option value="">Select Bank</option>
+                                <optgroup label="Commercial Banks">
+                                    <option value="gtb">Guaranty Trust Bank (GTB)</option>
+                                    <option value="uba">United Bank for Africa (UBA)</option>
+                                    <option value="zenith">Zenith Bank</option>
+                                    <option value="fidelity">Fidelity Bank</option>
+                                    <option value="fcmb">First City Monument Bank (FCMB)</option>
+                                    <option value="access">Access Bank</option>
+                                    <option value="first-bank">First Bank of Nigeria</option>
+                                    <option value="union-bank">Union Bank of Nigeria</option>
+                                    <option value="sterling">Sterling Bank</option>
+                                    <option value="stanbic">Stanbic IBTC Bank</option>
+                                    <option value="wema">Wema Bank</option>
+                                    <option value="unity">Unity Bank</option>
+                                    <option value="keystone">Keystone Bank</option>
+                                    <option value="providus">Providus Bank</option>
+                                    <option value="citibank">Citibank Nigeria</option>
+                                    <option value="ecobank">Ecobank Nigeria</option>
+                                    <option value="heritage">Heritage Bank</option>
+                                    <option value="polaris">Polaris Bank</option>
+                                    <option value="suntrust">SunTrust Bank</option>
+                                </optgroup>
+                                <optgroup label="Microfinance Banks">
+                                    <option value="opay">OPay</option>
+                                    <option value="palmpay">PalmPay</option>
+                                    <option value="moniepoint">Moniepoint</option>
+                                    <option value="kuda">Kuda Bank</option>
+                                    <option value="carbon">Carbon (Formerly Paylater)</option>
+                                    <option value="rubies">Rubies Bank</option>
+                                    <option value="sparkle">Sparkle Microfinance Bank</option>
+                                    <option value="renmoney">Renmoney</option>
+                                    <option value="gomoney">GoMoney</option>
+                                    <option value="alat">ALAT by Wema</option>
+                                    <option value="vbank">VBank</option>
+                                    <option value="eyowo">Eyowo</option>
+                                    <option value="paga">Paga</option>
+                                    <option value="quickteller">Quickteller Paypoint</option>
+                                    <option value="cowrywise">Cowrywise</option>
+                                    <option value="piggyvest">PiggyVest</option>
+                                </optgroup>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Upload Check Front</label>
+                            <input type="file" class="form-input" id="checkFront" accept="image/*" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Upload Check Back</label>
+                            <input type="file" class="form-input" id="checkBack" accept="image/*" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-success" style="width: 100%;">
+                            Deposit Check
+                        </button>
+                    </form>
+                    <button class="btn btn-primary" onclick="showPage('dashboard')" style="width: 100%; margin-top: 1rem;">
+                        Back to Dashboard
+                    </button>
+                </div>
+            </section>
+        </div>
+
+        <!-- ATM Card Request Page -->
+        <div id="atm-request" class="page">
+            <section class="container" style="padding: 2rem 0;">
+                <div class="card" style="max-width: 600px; margin: 0 auto;">
+                    <div class="card-header">
+                        <h2 class="card-title">Request ATM Card</h2>
+                    </div>
+                    <form onsubmit="handleATMRequest(event)">
+                        <div class="form-group">
+                            <label class="form-label">Card Type</label>
+                            <select class="form-input form-select" id="cardType" required>
+                                <option value="">Select Card Type</option>
+                                <option value="mastercard">NaijaPay Mastercard</option>
+                                <option value="visa">NaijaPay Visa</option>
+                                <option value="verve">NaijaPay Verve</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Delivery Address</label>
+                            <textarea class="form-input" id="deliveryAddress" rows="3" placeholder="Enter your full address for card delivery" required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Emergency Contact Name</label>
+                            <input type="text" class="form-input" id="emergencyContact" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Emergency Contact Phone</label>
+                            <input type="tel" class="form-input" id="emergencyPhone" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-success" style="width: 100%;">
+                            Request ATM Card
+                        </button>
+                    </form>
+                    <button class="btn btn-primary" onclick="showPage('dashboard')" style="width: 100%; margin-top: 1rem;">
+                        Back to Dashboard
+                    </button>
+                </div>
+            </section>
+        </div>
+
+        <!-- Loan Application Page -->
+        <div id="loan" class="page">
+            <section class="container" style="padding: 2rem 0;">
+                <div class="card" style="max-width: 600px; margin: 0 auto;">
+                    <div class="card-header">
+                        <h2 class="card-title">Apply for Loan</h2>
+                    </div>
+                    <form onsubmit="handleLoanApplication(event)">
+                        <div class="form-group">
+                            <label class="form-label">Loan Type</label>
+                            <select class="form-input form-select" id="loanType" required>
+                                <option value="">Select Loan Type</option>
+                                <option value="personal">Personal Loan</option>
+                                <option value="business">Business Loan</option>
+                                <option value="auto">Auto Loan</option>
+                                <option value="mortgage">Mortgage</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Loan Amount (₦)</label>
+                            <input type="number" class="form-input" id="loanAmount" min="10000" max="10000000" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Loan Purpose</label>
+                            <textarea class="form-input" id="loanPurpose" rows="3" placeholder="Briefly describe the purpose of this loan" required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Monthly Income (₦)</label>
+                            <input type="number" class="form-input" id="monthlyIncome" min="50000" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Employment Type</label>
+                            <select class="form-input form-select" id="employmentType" required>
+                                <option value="">Select Employment Type</option>
+                                <option value="employed">Employed</option>
+                                <option value="self-employed">Self Employed</option>
+                                <option value="business">Business Owner</option>
+                                <option value="freelance">Freelancer</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-success" style="width: 100%;">
+                            Submit Loan Application
+                        </button>
+                    </form>
+                    <button class="btn btn-primary" onclick="showPage('dashboard')" style="width: 100%; margin-top: 1rem;">
+                        Back to Dashboard
+                    </button>
+                </div>
+            </section>
+        </div>
+
+        <!-- Statement Page -->
+        <div id="statement" class="page">
+            <section class="container" style="padding: 2rem 0;">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Account Statement</h2>
+                        <button class="btn btn-primary" onclick="printStatement()">
+                            <i class="fas fa-print"></i> Print Statement
+                        </button>
+                    </div>
+                    
+                    <div class="form-group" style="max-width: 300px; margin-bottom: 2rem;">
+                        <label class="form-label">Filter by Period</label>
+                        <select class="form-input form-select" id="statementPeriod" onchange="filterStatement()">
+                            <option value="all">All Transactions</option>
+                            <option value="30">Last 30 Days</option>
+                            <option value="90">Last 3 Months</option>
+                            <option value="365">Last Year</option>
+                        </select>
+                    </div>
+
+                    <div id="statementContent">
+                        <div class="transaction-item">
+                            <div style="display: flex; align-items: center;">
+                                <div class="transaction-icon credit">
+                                    <i class="fas fa-plus"></i>
+                                </div>
+                                <div>
+                                    <div><strong>Account Opening Bonus</strong></div>
+                                    <div style="color: #666; font-size: 0.9rem;">Welcome bonus</div>
+                                    <div style="color: #666; font-size: 0.8rem;">Today</div>
+                                </div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="color: var(--success-color); font-weight: bold;">+₦1,000.00</div>
+                                <div style="font-size: 0.9rem; color: #666;">Balance: ₦1,000.00</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary" onclick="showPage('dashboard')" style="margin-top: 2rem;">
+                        Back to Dashboard
+                    </button>
+                </div>
+            </section>
+        </div>
+
+        <!-- Receipt Page -->
+        <div id="receipt" class="page">
+            <section class="container" style="padding: 2rem 0;">
+                <div class="receipt" id="transactionReceipt">
+                    <div class="receipt-header">
+                        <h2>NAIJAPAY</h2>
+                        <p>Digital Banking Receipt</p>
+                        <p>=============================</p>
+                    </div>
+                    <div id="receiptContent">
+                        <!-- Receipt content will be populated by JavaScript -->
+                    </div>
+                    <div style="text-align: center; margin-top: 2rem;">
+                        <p>Thank you for banking with NaijaPay</p>
+                        <p style="font-size: 0.8rem;">Keep this receipt for your records</p>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="btn btn-primary" onclick="printReceipt()">
+                        <i class="fas fa-print"></i> Print Receipt
+                    </button>
+                    <button class="btn btn-success" onclick="showPage('dashboard')">
+                        Back to Dashboard
+                    </button>
+                </div>
+            </section>
+        </div>
+
+        <!-- Admin Dashboard -->
+        <div id="admin-dashboard" class="page">
+            <section class="container" style="padding: 2rem 0;">
+                <div class="card admin-panel">
+                    <div class="card-header">
+                        <h1 class="card-title" style="color: var(--white);">Master Admin Control Panel</h1>
+                        <div style="float: right;">
+                            <button class="btn btn-primary" onclick="toggleWebsiteStatus()">
+                                <span id="websiteStatusBtn">Website: ONLINE</span>
+                            </button>
+                            <button class="btn btn-primary" onclick="logout()" style="margin-left: 10px;">Logout</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid" style="margin-top: 2rem;">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-value" id="totalUsers">0</div>
+                        <div class="stat-label">Total Users</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                        <div class="stat-value" id="activeUsers">0</div>
+                        <div class="stat-label">Active Users</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div class="stat-value">₦<span id="totalDeposits">0.00</span></div>
+                        <div class="stat-label">Total Deposits</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="stat-value" id="totalTransactionsAdmin">0</div>
+                        <div class="stat-label">Total Transactions</div>
+                    </div>
+                </div>
+
+                <!-- Admin Control Tabs -->
+                <div class="admin-tabs" style="margin: 2rem 0;">
+                    <button class="tab-button active" onclick="showAdminTab('user-management')">User Management</button>
+                    <button class="tab-button" onclick="showAdminTab('fund-account')">Fund Account</button>
+                    <button class="tab-button" onclick="showAdminTab('system-control')">System Control</button>
+                    <button class="tab-button" onclick="showAdminTab('user-search')">User Search</button>
+                </div>
+
+                <!-- User Management Tab -->
+                <div id="user-management" class="admin-tab-content active">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">User Account Management</h3>
+                            <div style="float: right;">
+                                <input type="text" id="userSearchBox" placeholder="Search users..." onkeyup="searchUsers()" style="padding: 5px; margin-right: 10px;">
+                                <select id="userFilterStatus" onchange="filterUsers()" style="padding: 5px;">
+                                    <option value="all">All Users</option>
+                                    <option value="active">Active Only</option>
+                                    <option value="inactive">Inactive Only</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="user-list" id="userList">
+                            <!-- User list will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fund Account Tab -->
+                <div id="fund-account" class="admin-tab-content">
+                    <div class="grid-2">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Fund User Account</h3>
+                            </div>
+                            <form onsubmit="handleAdminFunding(event)">
+                                <div class="form-group">
+                                    <label class="form-label">User Account Number</label>
+                                    <input type="text" class="form-input" id="fundAccountNumber" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Amount (₦)</label>
+                                    <input type="number" class="form-input" id="fundAmount" step="0.01" min="1" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Description</label>
+                                    <input type="text" class="form-input" id="fundDescription" placeholder="Reason for funding" required>
+                                </div>
+                                <button type="submit" class="btn btn-success" style="width: 100%;">
+                                    Fund Account
+                                </button>
+                            </form>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Debit User Account</h3>
+                            </div>
+                            <form onsubmit="handleAdminDebit(event)">
+                                <div class="form-group">
+                                    <label class="form-label">User Account Number</label>
+                                    <input type="text" class="form-input" id="debitAccountNumber" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Amount (₦)</label>
+                                    <input type="number" class="form-input" id="debitAmount" step="0.01" min="1" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Description</label>
+                                    <input type="text" class="form-input" id="debitDescription" placeholder="Reason for debit" required>
+                                </div>
+                                <button type="submit" class="btn btn-danger" style="width: 100%;">
+                                    Debit Account
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- System Control Tab -->
+                <div id="system-control" class="admin-tab-content">
+                    <div class="grid-2">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Website Control</h3>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-warning" onclick="toggleMaintenanceMode()" style="width: 100%; margin-bottom: 10px;">
+                                    <span id="maintenanceBtn">Enable Maintenance Mode</span>
+                                </button>
+                                <button class="btn btn-info" onclick="clearAllTransactions()" style="width: 100%; margin-bottom: 10px;">
+                                    Clear Transaction History
+                                </button>
+                                <button class="btn btn-danger" onclick="resetAllUserBalances()" style="width: 100%;">
+                                    Reset All User Balances
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">System Statistics</h3>
+                            </div>
+                            <div id="systemStats">
+                                <div class="receipt-row">
+                                    <span>Website Status:</span>
+                                    <span id="websiteStatus">Online</span>
+                                </div>
+                                <div class="receipt-row">
+                                    <span>Maintenance Mode:</span>
+                                    <span id="maintenanceStatus">Disabled</span>
+                                </div>
+                                <div class="receipt-row">
+                                    <span>Total Transactions:</span>
+                                    <span id="systemTransactionCount">0</span>
+                                </div>
+                                <div class="receipt-row">
+                                    <span>Active Sessions:</span>
+                                    <span id="activeSessions">1</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User Search Tab -->
+                <div id="user-search" class="admin-tab-content">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Advanced User Search</h3>
+                        </div>
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label class="form-label">Search by Account Number</label>
+                                <input type="text" class="form-input" id="searchAccountNumber" placeholder="Enter account number">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Search by Email</label>
+                                <input type="email" class="form-input" id="searchEmail" placeholder="Enter email address">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Search by Name</label>
+                                <input type="text" class="form-input" id="searchName" placeholder="Enter first or last name">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Search by Phone</label>
+                                <input type="tel" class="form-input" id="searchPhone" placeholder="Enter phone number">
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" onclick="performAdvancedSearch()" style="width: 100%; margin-bottom: 20px;">
+                            Search Users
+                        </button>
+                        
+                        <div id="searchResults" class="user-list" style="display: none;">
+                            <!-- Search results will appear here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- About Page -->
+        <div id="about" class="page">
+            <section class="container" style="padding: 4rem 0;">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="card-title">About NaijaPay</h1>
+                    </div>
+                    <p>NaijaPay is Nigeria's leading digital banking platform, designed to provide secure, fast, and reliable financial services to individuals and businesses across the country and beyond.</p>
+                    
+                    <h3 style="margin-top: 2rem; color: var(--primary-color);">Our Mission</h3>
+                    <p>To democratize banking services and make financial inclusion accessible to every Nigerian, regardless of location or economic status.</p>
+                    
+                    <h3 style="margin-top: 2rem; color: var(--primary-color);">Our Services</h3>
+                    <ul style="margin-left: 2rem;">
+                        <li>Local and International Money Transfers</li>
+                        <li>Mobile Check Deposits</li>
+                        <li>ATM Card Services</li>
+                        <li>Personal and Business Loans</li>
+                        <li>USSD Banking (*737#)</li>
+                        <li>24/7 Customer Support</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <!-- Contact Page -->
+        <div id="contact" class="page">
+            <section class="container" style="padding: 4rem 0;">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="card-title">Contact Us</h1>
+                    </div>
+                    <div class="grid-2">
+                        <div>
+                            <h3 style="color: var(--primary-color);">Get in Touch</h3>
+                            <p><i class="fas fa-phone"></i> +234-800-NAIJA-PAY</p>
+                            <p><i class="fas fa-envelope"></i> support@naijapay.com</p>
+                            <p><i class="fas fa-map-marker-alt"></i> 123 Banking Street, Victoria Island, Lagos</p>
+                            
+                            <h3 style="margin-top: 2rem; color: var(--primary-color);">Business Hours</h3>
+                            <p>Monday - Friday: 8:00 AM - 6:00 PM</p>
+                            <p>Saturday: 9:00 AM - 2:00 PM</p>
+                            <p>Sunday: Closed</p>
+                            <p><strong>Online Banking: 24/7</strong></p>
+                        </div>
+                        
+                        <div>
+                            <h3 style="color: var(--primary-color);">Send us a Message</h3>
+                            <form onsubmit="handleContact(event)">
+                                <div class="form-group">
+                                    <input type="text" class="form-input" placeholder="Your Name" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" class="form-input" placeholder="Your Email" required>
+                                </div>
+                                <div class="form-group">
+                                    <textarea class="form-input" rows="4" placeholder="Your Message" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-success">Send Message</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Notification Container -->
+    <div id="notificationContainer"></div>
+
+    <script>
+        // Application State
+        let currentUser = null;
+        let isAdmin = false;
+        let users = {};
+        let transactions = [];
+        let transactionCounter = 1000;
+        let websiteStatus = 'online'; // online, offline
+        let maintenanceMode = false;
+
+        // Initialize Application
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create admin account
+            users['admin'] = {
+                username: 'admin',
+                password: 'admin123',
+                isAdmin: true
+            };
+            
+            // Add some demo users
+            users['2024001001'] = {
+                accountNumber: '2024001001',
+                firstName: 'Demo',
+                lastName: 'User',
+                email: 'demo@example.com',
+                phone: '08012345678',
+                password: 'password123',
+                balance: 50000.00,
+                transferCode: '001',
+                isActive: true,
+                createdAt: new Date()
+            };
+            
+            updateAdminStats();
+        });
+
+        // Website Control Functions
+        function toggleWebsiteStatus() {
+            if (websiteStatus === 'online') {
+                websiteStatus = 'offline';
+                document.getElementById('websiteOffline').style.display = 'flex';
+                document.getElementById('websiteStatusBtn').textContent = 'Website: OFFLINE';
+                showNotification('Website has been taken offline!', 'warning');
+            } else {
+                websiteStatus = 'online';
+                document.getElementById('websiteOffline').style.display = 'none';
+                document.getElementById('websiteStatusBtn').textContent = 'Website: ONLINE';
+                showNotification('Website is now online!', 'success');
+            }
+            updateSystemStats();
+        }
+
+        function toggleMaintenanceMode() {
+            if (maintenanceMode) {
+                maintenanceMode = false;
+                document.getElementById('maintenanceNotice').style.display = 'none';
+                document.getElementById('maintenanceBtn').textContent = 'Enable Maintenance Mode';
+                showNotification('Maintenance mode disabled!', 'success');
+            } else {
+                maintenanceMode = true;
+                document.getElementById('maintenanceNotice').style.display = 'block';
+                document.getElementById('maintenanceBtn').textContent = 'Disable Maintenance Mode';
+                showNotification('Maintenance mode enabled!', 'warning');
+            }
+            updateSystemStats();
+        }
+
+        function updateSystemStats() {
+            if (document.getElementById('websiteStatus')) {
+                document.getElementById('websiteStatus').textContent = websiteStatus.charAt(0).toUpperCase() + websiteStatus.slice(1);
+                document.getElementById('maintenanceStatus').textContent = maintenanceMode ? 'Enabled' : 'Disabled';
+                document.getElementById('systemTransactionCount').textContent = transactions.length;
+                document.getElementById('activeSessions').textContent = currentUser ? '1' : '0';
+            }
+        }
+
+        // Admin Tab Management
+        function showAdminTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.admin-tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active class from all tab buttons
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab and activate button
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Enhanced User Management
+        function toggleUserStatus(accountNumber) {
+            if (users[accountNumber]) {
+                users[accountNumber].isActive = !users[accountNumber].isActive;
+                const status = users[accountNumber].isActive ? 'activated' : 'deactivated';
+                showNotification(`User account ${accountNumber} has been ${status}!`, 'success');
+                updateUserList();
+                updateAdminStats();
+            }
+        }
+
+        function resetUserPassword(accountNumber) {
+            if (users[accountNumber]) {
+                const newPassword = generateRandomPassword();
+                users[accountNumber].password = newPassword;
+                showNotification(`Password reset for ${accountNumber}. New password: ${newPassword}`, 'success');
+                
+                // Add transaction record
+                transactions.push({
+                    id: `TXN${transactionCounter++}`,
+                    accountNumber: accountNumber,
+                    type: 'system',
+                    amount: 0,
+                    description: 'Password reset by admin',
+                    adminAction: true,
+                    timestamp: new Date(),
+                    status: 'completed'
+                });
+            }
+        }
+
+        function generateRandomPassword() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let password = '';
+            for (let i = 0; i < 8; i++) {
+                password += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return password;
+        }
+
+        function searchUsers() {
+            const searchTerm = document.getElementById('userSearchBox').value.toLowerCase();
+            const userAccounts = Object.values(users).filter(user => !user.isAdmin);
+            
+            const filteredUsers = userAccounts.filter(user => {
+                return (user.firstName && user.firstName.toLowerCase().includes(searchTerm)) ||
+                       (user.lastName && user.lastName.toLowerCase().includes(searchTerm)) ||
+                       (user.email && user.email.toLowerCase().includes(searchTerm)) ||
+                       (user.accountNumber && user.accountNumber.includes(searchTerm)) ||
+                       (user.phone && user.phone.includes(searchTerm));
+            });
+            
+            displayUserList(filteredUsers);
+        }
+
+        function filterUsers() {
+            const filter = document.getElementById('userFilterStatus').value;
+            const userAccounts = Object.values(users).filter(user => !user.isAdmin);
+            
+            let filteredUsers;
+            if (filter === 'active') {
+                filteredUsers = userAccounts.filter(user => user.isActive);
+            } else if (filter === 'inactive') {
+                filteredUsers = userAccounts.filter(user => !user.isActive);
+            } else {
+                filteredUsers = userAccounts;
+            }
+            
+            displayUserList(filteredUsers);
+        }
+
+        function displayUserList(userList) {
+            const userListContainer = document.getElementById('userList');
+            if (!userListContainer) return;
+            
+            userListContainer.innerHTML = userList.map(user => `
+                <div class="user-item">
+                    <div class="user-info">
+                        <div class="user-avatar">
+                            ${user.firstName ? user.firstName.charAt(0) + user.lastName.charAt(0) : 'U'}
+                        </div>
+                        <div>
+                            <div><strong>${user.firstName || 'Unknown'} ${user.lastName || 'User'}</strong></div>
+                            <div style="font-size: 0.9rem; color: #666;">${user.accountNumber}</div>
+                            <div style="font-size: 0.8rem; color: #666;">${user.email || 'No email'}</div>
+                            <div style="font-size: 0.8rem; color: #666;">${user.phone || 'No phone'}</div>
+                        </div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-weight: bold;">₦${(user.balance || 0).toFixed(2)}</div>
+                        <div class="status-badge ${user.isActive ? 'status-active' : 'status-inactive'}">
+                            ${user.isActive ? 'Active' : 'Inactive'}
+                        </div>
+                        <div class="user-actions" style="margin-top: 8px;">
+                            <button class="btn btn-sm ${user.isActive ? 'btn-warning' : 'btn-success'}" 
+                                    onclick="toggleUserStatus('${user.accountNumber}')">
+                                ${user.isActive ? 'Deactivate' : 'Activate'}
+                            </button>
+                            <button class="btn btn-sm btn-info" onclick="resetUserPassword('${user.accountNumber}')">
+                                Reset Password
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Advanced Search Functions
+        function performAdvancedSearch() {
+            const accountNumber = document.getElementById('searchAccountNumber').value;
+            const email = document.getElementById('searchEmail').value.toLowerCase();
+            const name = document.getElementById('searchName').value.toLowerCase();
+            const phone = document.getElementById('searchPhone').value;
+            
+            const userAccounts = Object.values(users).filter(user => !user.isAdmin);
+            
+            const results = userAccounts.filter(user => {
+                let matches = true;
+                
+                if (accountNumber && !user.accountNumber.includes(accountNumber)) matches = false;
+                if (email && (!user.email || !user.email.toLowerCase().includes(email))) matches = false;
+                if (name && (!user.firstName || !user.lastName || 
+                    !(user.firstName.toLowerCase().includes(name) || user.lastName.toLowerCase().includes(name)))) matches = false;
+                if (phone && (!user.phone || !user.phone.includes(phone))) matches = false;
+                
+                return matches;
+            });
+            
+            const searchResults = document.getElementById('searchResults');
+            searchResults.style.display = 'block';
+            
+            if (results.length === 0) {
+                searchResults.innerHTML = '<p style="text-align: center; padding: 2rem; color: #666;">No users found matching the search criteria.</p>';
+            } else {
+                displaySearchResults(results);
+            }
+        }
+
+        function displaySearchResults(results) {
+            const searchResults = document.getElementById('searchResults');
+            searchResults.innerHTML = results.map(user => `
+                <div class="user-item">
+                    <div class="user-info">
+                        <div class="user-avatar">
+                            ${user.firstName ? user.firstName.charAt(0) + user.lastName.charAt(0) : 'U'}
+                        </div>
+                        <div>
+                            <div><strong>${user.firstName || 'Unknown'} ${user.lastName || 'User'}</strong></div>
+                            <div style="font-size: 0.9rem; color: #666;">Account: ${user.accountNumber}</div>
+                            <div style="font-size: 0.8rem; color: #666;">Email: ${user.email || 'No email'}</div>
+                            <div style="font-size: 0.8rem; color: #666;">Phone: ${user.phone || 'No phone'}</div>
+                            <div style="font-size: 0.8rem; color: #666;">Created: ${new Date(user.createdAt).toLocaleDateString()}</div>
+                        </div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-weight: bold;">Balance: ₦${(user.balance || 0).toFixed(2)}</div>
+                        <div class="status-badge ${user.isActive ? 'status-active' : 'status-inactive'}">
+                            ${user.isActive ? 'Active' : 'Inactive'}
+                        </div>
+                        <div style="font-size: 0.8rem; color: #666; margin-top: 4px;">
+                            Transfer Code: ${user.transferCode}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Enhanced Admin Functions
+        function handleAdminDebit(event) {
+            event.preventDefault();
+            
+            const accountNumber = document.getElementById('debitAccountNumber').value;
+            const amount = parseFloat(document.getElementById('debitAmount').value);
+            const description = document.getElementById('debitDescription').value;
+            
+            if (!users[accountNumber]) {
+                showNotification('Account not found!', 'error');
+                return;
+            }
+            
+            if (users[accountNumber].isAdmin) {
+                showNotification('Cannot debit admin account!', 'error');
+                return;
+            }
+            
+            if (users[accountNumber].balance < amount) {
+                showNotification('Insufficient funds in user account!', 'error');
+                return;
+            }
+            
+            // Debit user account
+            users[accountNumber].balance -= amount;
+            
+            // Add transaction
+            transactions.push({
+                id: `TXN${transactionCounter++}`,
+                accountNumber: accountNumber,
+                type: 'debit',
+                amount: amount,
+                description: `Admin Debit: ${description}`,
+                adminAction: true,
+                timestamp: new Date(),
+                status: 'completed'
+            });
+            
+            showNotification(`Successfully debited ₦${amount.toFixed(2)} from account ${accountNumber}`, 'success');
+            document.querySelector('#fund-account form:last-child').reset();
+            updateAdminStats();
+            updateUserList();
+        }
+
+        function clearAllTransactions() {
+            if (confirm('Are you sure you want to clear ALL transaction history? This action cannot be undone.')) {
+                transactions = [];
+                transactionCounter = 1000;
+                showNotification('All transaction history has been cleared!', 'warning');
+                updateAdminStats();
+            }
+        }
+
+        function resetAllUserBalances() {
+            if (confirm('Are you sure you want to reset ALL user balances to ₦0.00? This action cannot be undone.')) {
+                Object.keys(users).forEach(key => {
+                    if (!users[key].isAdmin) {
+                        users[key].balance = 0;
+                        
+                        // Add system transaction
+                        transactions.push({
+                            id: `TXN${transactionCounter++}`,
+                            accountNumber: users[key].accountNumber,
+                            type: 'system',
+                            amount: 0,
+                            description: 'Balance reset by admin',
+                            adminAction: true,
+                            timestamp: new Date(),
+                            status: 'completed'
+                        });
+                    }
+                });
+                
+                showNotification('All user balances have been reset to ₦0.00!', 'warning');
+                updateAdminStats();
+                updateUserList();
+            }
+        }
+
+        // Bank Search Functions
+        function searchBanks() {
+            const searchTerm = document.getElementById('bankSearch').value.toLowerCase();
+            const bankSelect = document.getElementById('recipientBank');
+            const options = bankSelect.getElementsByTagName('option');
+            
+            for (let i = 0; i < options.length; i++) {
+                const option = options[i];
+                const text = option.textContent.toLowerCase();
+                
+                if (text.includes(searchTerm) || searchTerm === '') {
+                    option.style.display = '';
+                } else {
+                    option.style.display = 'none';
+                }
+            }
+        }
+
+        function searchIssuingBanks() {
+            const searchTerm = document.getElementById('issuingBankSearch').value.toLowerCase();
+            const bankSelect = document.getElementById('issuingBank');
+            const options = bankSelect.getElementsByTagName('option');
+            
+            for (let i = 0; i < options.length; i++) {
+                const option = options[i];
+                const text = option.textContent.toLowerCase();
+                
+                if (text.includes(searchTerm) || searchTerm === '') {
+                    option.style.display = '';
+                } else {
+                    option.style.display = 'none';
+                }
+            }
+        }
+
+        // Utility Functions
+        function generateAccountNumber() {
+            const year = new Date().getFullYear();
+            const random = Math.floor(Math.random() * 999999).toString().padStart(6, '0');
+            return `${year}${random}`;
+        }
+
+        function generateTransferCode() {
+            return Math.floor(Math.random() * 999).toString().padStart(3, '0');
+        }
+
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('en-NG', {
+                style: 'currency',
+                currency: 'NGN'
+            }).format(amount);
+        }
+
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'times-circle' : 'exclamation-triangle'}"></i>
+                ${message}
+            `;
+            
+            document.getElementById('notificationContainer').appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 100);
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 4000);
+        }
+
+        function showPage(pageName) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            // Show selected page
+            const targetPage = document.getElementById(pageName);
+            if (targetPage) {
+                targetPage.classList.add('active');
+                
+                // Add fade-in animation
+                targetPage.style.opacity = '0';
+                setTimeout(() => {
+                    targetPage.style.opacity = '1';
+                    targetPage.style.transition = 'opacity 0.3s ease';
+                }, 10);
+            }
+        }
+
+        // Authentication Functions
+        function handleRegister(event) {
+            event.preventDefault();
+            
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (password !== confirmPassword) {
+                showNotification('Passwords do not match!', 'error');
+                return;
+            }
+            
+            const accountNumber = generateAccountNumber();
+            const transferCode = generateTransferCode();
+            
+            users[accountNumber] = {
+                accountNumber,
+                firstName,
+                lastName,
+                email,
+                phone,
+                password,
+                balance: 1000.00, // Welcome bonus
+                transferCode,
+                isActive: true,
+                createdAt: new Date()
+            };
+            
+            // Add welcome bonus transaction
+            transactions.push({
+                id: `TXN${transactionCounter++}`,
+                accountNumber,
+                type: 'credit',
+                amount: 1000.00,
+                description: 'Welcome bonus',
+                timestamp: new Date(),
+                status: 'completed'
+            });
+            
+            showNotification(`Account created successfully! Your account number is: ${accountNumber}`, 'success');
+            document.querySelector('form').reset();
+            setTimeout(() => showPage('login'), 2000);
+            updateAdminStats();
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            // Check if website is offline
+            if (websiteStatus === 'offline') {
+                showNotification('Website is currently offline. Please try again later.', 'error');
+                return;
+            }
+            
+            const accountNumber = document.getElementById('loginAccount').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            if (users[accountNumber] && users[accountNumber].password === password) {
+                // Check if user account is active
+                if (!users[accountNumber].isActive) {
+                    showNotification('Your account has been deactivated. Please contact customer support.', 'error');
+                    return;
+                }
+                
+                currentUser = users[accountNumber];
+                isAdmin = false;
+                showNotification(`Welcome back, ${currentUser.firstName}!`, 'success');
+                updateDashboard();
+                showPage('dashboard');
+                updateNavigation();
+            } else {
+                showNotification('Invalid account number or password!', 'error');
+            }
+        }
+
+        function handleAdminLogin(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('adminUsername').value;
+            const password = document.getElementById('adminPassword').value;
+            
+            if (username === 'admin' && password === 'admin123') {
+                currentUser = { username: 'admin', firstName: 'Admin' };
+                isAdmin = true;
+                showNotification('Admin login successful!', 'success');
+                updateAdminDashboard();
+                showPage('admin-dashboard');
+                updateNavigation();
+            } else {
+                showNotification('Invalid admin credentials!', 'error');
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            isAdmin = false;
+            showNotification('Logged out successfully!', 'success');
+            showPage('home');
+            updateNavigation();
+        }
+
+        function updateNavigation() {
+            const navLinks = document.querySelector('.nav-links');
+            if (currentUser) {
+                navLinks.innerHTML = `
+                    <li><a href="#" onclick="showPage('${isAdmin ? 'admin-dashboard' : 'dashboard'}')">${isAdmin ? 'Admin Panel' : 'Dashboard'}</a></li>
+                    ${!isAdmin ? '<li><a href="#" onclick="showPage(\'transfer\')">Transfer</a></li>' : ''}
+                    <li><a href="#" onclick="logout()" class="btn btn-primary">Logout</a></li>
+                `;
+            } else {
+                navLinks.innerHTML = `
+                    <li><a href="#" onclick="showPage('home')">Home</a></li>
+                    <li><a href="#" onclick="showPage('about')">About</a></li>
+                    <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+                    <li><a href="#" class="btn btn-primary" onclick="showPage('login')">Login</a></li>
+                    <li><a href="#" class="btn btn-success" onclick="showPage('register')">Register</a></li>
+                `;
+            }
+        }
+
+        // Dashboard Functions
+        function updateDashboard() {
+            if (!currentUser) return;
+            
+            document.getElementById('dashboardName').textContent = `${currentUser.firstName} ${currentUser.lastName}`;
+            document.getElementById('dashboardAccount').textContent = currentUser.accountNumber;
+            document.getElementById('accountBalance').textContent = currentUser.balance.toFixed(2);
+            document.getElementById('transferCode').textContent = currentUser.transferCode;
+            
+            // Update transaction count
+            const userTransactions = transactions.filter(t => t.accountNumber === currentUser.accountNumber);
+            document.getElementById('totalTransactions').textContent = userTransactions.length;
+            
+            // Update recent transactions
+            updateRecentTransactions();
+        }
+
+        function updateRecentTransactions() {
+            const recentTransactionsContainer = document.getElementById('recentTransactions');
+            const userTransactions = transactions
+                .filter(t => t.accountNumber === currentUser.accountNumber)
+                .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
+                .slice(0, 5);
+                
+            if (userTransactions.length === 0) {
+                recentTransactionsContainer.innerHTML = '<p style="text-align: center; color: #666;">No recent transactions</p>';
+                return;
+            }
+            
+            recentTransactionsContainer.innerHTML = userTransactions.map(transaction => `
+                <div class="transaction-item">
+                    <div style="display: flex; align-items: center;">
+                        <div class="transaction-icon ${transaction.type}">
+                            <i class="fas fa-${transaction.type === 'credit' ? 'plus' : 'minus'}"></i>
+                        </div>
+                        <div>
+                            <div><strong>${transaction.description}</strong></div>
+                            <div style="color: #666; font-size: 0.9rem;">${transaction.id}</div>
+                            <div style="color: #666; font-size: 0.8rem;">${new Date(transaction.timestamp).toLocaleDateString()}</div>
+                        </div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="color: var(--${transaction.type === 'credit' ? 'success' : 'danger'}-color); font-weight: bold;">
+                            ${transaction.type === 'credit' ? '+' : '-'}₦${transaction.amount.toFixed(2)}
+                        </div>
+                        <div style="font-size: 0.9rem; color: #666;">${transaction.status}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Transaction Functions
+        function handleTransfer(event) {
+            event.preventDefault();
+            
+            const transferType = document.getElementById('transferType').value;
+            const recipientAccount = document.getElementById('recipientAccount').value;
+            const recipientName = document.getElementById('recipientName').value;
+            const amount = parseFloat(document.getElementById('transferAmount').value);
+            const description = document.getElementById('transferDescription').value || 'Transfer';
+            
+            if (amount > currentUser.balance) {
+                showNotification('Insufficient funds!', 'error');
+                return;
+            }
+            
+            if (amount < 1) {
+                showNotification('Minimum transfer amount is ₦1.00', 'error');
+                return;
+            }
+            
+            // Calculate transfer fee
+            let fee = 0;
+            if (transferType === 'domestic') fee = 50;
+            if (transferType === 'international') fee = 500;
+            
+            const totalAmount = amount + fee;
+            
+            if (totalAmount > currentUser.balance) {
+                showNotification(`Insufficient funds! Total amount including fee: ₦${totalAmount.toFixed(2)}`, 'error');
+                return;
+            }
+            
+            // Process transfer
+            currentUser.balance -= totalAmount;
+            users[currentUser.accountNumber] = currentUser;
+            
+            // Add debit transaction
+            const transactionId = `TXN${transactionCounter++}`;
+            transactions.push({
+                id: transactionId,
+                accountNumber: currentUser.accountNumber,
+                type: 'debit',
+                amount: amount,
+                description: `Transfer to ${recipientName}`,
+                recipient: recipientAccount,
+                transferType,
+                timestamp: new Date(),
+                status: 'completed'
+            });
+            
+            // Add fee transaction if applicable
+            if (fee > 0) {
+                transactions.push({
+                    id: `TXN${transactionCounter++}`,
+                    accountNumber: currentUser.accountNumber,
+                    type: 'debit',
+                    amount: fee,
+                    description: `Transfer fee (${transferType})`,
+                    timestamp: new Date(),
+                    status: 'completed'
+                });
+            }
+            
+            // If local transfer, credit recipient if account exists
+            if (transferType === 'local' && users[recipientAccount]) {
+                users[recipientAccount].balance += amount;
+                transactions.push({
+                    id: `TXN${transactionCounter++}`,
+                    accountNumber: recipientAccount,
+                    type: 'credit',
+                    amount: amount,
+                    description: `Transfer from ${currentUser.firstName} ${currentUser.lastName}`,
+                    sender: currentUser.accountNumber,
+                    timestamp: new Date(),
+                    status: 'completed'
+                });
+            }
+            
+            showNotification(`Transfer of ₦${amount.toFixed(2)} successful!`, 'success');
+            generateReceipt({
+                type: 'Transfer',
+                amount: amount,
+                fee: fee,
+                recipient: recipientName,
+                recipientAccount: recipientAccount,
+                transactionId: transactionId,
+                timestamp: new Date()
+            });
+            
+            document.querySelector('#transfer form').reset();
+            updateDashboard();
+            showPage('receipt');
+        }
+
+        function toggleTransferFields() {
+            const transferType = document.getElementById('transferType').value;
+            const bankField = document.getElementById('bankField');
+            const countryField = document.getElementById('countryField');
+            
+            bankField.style.display = (transferType === 'domestic' || transferType === 'international') ? 'block' : 'none';
+            countryField.style.display = transferType === 'international' ? 'block' : 'none';
+        }
+
+        function handleCheckDeposit(event) {
+            event.preventDefault();
+            
+            const amount = parseFloat(document.getElementById('checkAmount').value);
+            const checkNumber = document.getElementById('checkNumber').value;
+            const issuingBank = document.getElementById('issuingBank').value;
+            
+            // Simulate check processing
+            showNotification('Check submitted for processing. Funds will be available within 1-2 business days.', 'success');
+            
+            // Add pending transaction
+            const transactionId = `TXN${transactionCounter++}`;
+            transactions.push({
+                id: transactionId,
+                accountNumber: currentUser.accountNumber,
+                type: 'credit',
+                amount: amount,
+                description: `Check Deposit - ${checkNumber}`,
+                checkNumber: checkNumber,
+                issuingBank: issuingBank,
+                timestamp: new Date(),
+                status: 'pending'
+            });
+            
+            // Simulate processing delay (in real app, this would be handled by backend)
+            setTimeout(() => {
+                currentUser.balance += amount;
+                users[currentUser.accountNumber] = currentUser;
+                
+                // Update transaction status
+                const transaction = transactions.find(t => t.id === transactionId);
+                if (transaction) transaction.status = 'completed';
+                
+                showNotification(`Check deposit of ₦${amount.toFixed(2)} has been processed and added to your account!`, 'success');
+                updateDashboard();
+            }, 3000);
+            
+            generateReceipt({
+                type: 'Check Deposit',
+                amount: amount,
+                checkNumber: checkNumber,
+                issuingBank: issuingBank,
+                transactionId: transactionId,
+                timestamp: new Date(),
+                status: 'pending'
+            });
+            
+            document.querySelector('#deposit form').reset();
+            showPage('receipt');
+        }
+
+        function handleATMRequest(event) {
+            event.preventDefault();
+            
+            const cardType = document.getElementById('cardType').value;
+            const deliveryAddress = document.getElementById('deliveryAddress').value;
+            const emergencyContact = document.getElementById('emergencyContact').value;
+            const emergencyPhone = document.getElementById('emergencyPhone').value;
+            
+            showNotification('ATM Card request submitted successfully! Your card will be delivered within 5-7 business days.', 'success');
+            
+            // Add ATM request transaction
+            transactions.push({
+                id: `TXN${transactionCounter++}`,
+                accountNumber: currentUser.accountNumber,
+                type: 'debit',
+                amount: 1000, // Card fee
+                description: `ATM Card Request - ${cardType}`,
+                cardType: cardType,
+                deliveryAddress: deliveryAddress,
+                timestamp: new Date(),
+                status: 'processing'
+            });
+            
+            // Deduct card fee
+            currentUser.balance -= 1000;
+            users[currentUser.accountNumber] = currentUser;
+            
+            document.querySelector('#atm-request form').reset();
+            updateDashboard();
+            showPage('dashboard');
+        }
+
+        function handleLoanApplication(event) {
+            event.preventDefault();
+            
+            const loanType = document.getElementById('loanType').value;
+            const loanAmount = parseFloat(document.getElementById('loanAmount').value);
+            const loanPurpose = document.getElementById('loanPurpose').value;
+            const monthlyIncome = parseFloat(document.getElementById('monthlyIncome').value);
+            const employmentType = document.getElementById('employmentType').value;
+            
+            // Simple loan eligibility check
+            const maxLoanAmount = monthlyIncome * 10; // 10 times monthly income
+            const eligible = loanAmount <= maxLoanAmount && monthlyIncome >= 50000;
+            
+            if (eligible) {
+                showNotification(`Loan application submitted successfully! Your ${loanType} loan of ₦${loanAmount.toFixed(2)} is under review.`, 'success');
+                
+                transactions.push({
+                    id: `TXN${transactionCounter++}`,
+                    accountNumber: currentUser.accountNumber,
+                    type: 'application',
+                    amount: loanAmount,
+                    description: `${loanType} Loan Application`,
+                    loanType: loanType,
+                    purpose: loanPurpose,
+                    monthlyIncome: monthlyIncome,
+                    employmentType: employmentType,
+                    timestamp: new Date(),
+                    status: 'under_review'
+                });
+            } else {
+                showNotification('Loan application denied. Please check your eligibility criteria.', 'error');
+            }
+            
+            document.querySelector('#loan form').reset();
+            updateDashboard();
+            showPage('dashboard');
+        }
+
+        // Admin Functions
+        function updateAdminDashboard() {
+            updateAdminStats();
+            updateUserList();
+            updateSystemStats();
+        }
+
+        function updateAdminStats() {
+            const totalUsers = Object.keys(users).filter(key => key !== 'admin').length;
+            const activeUsers = Object.values(users).filter(user => !user.isAdmin && user.isActive).length;
+            const totalDeposits = Object.values(users)
+                .filter(user => !user.isAdmin)
+                .reduce((sum, user) => sum + (user.balance || 0), 0);
+            const totalTransactionsCount = transactions.length;
+            
+            if (document.getElementById('totalUsers')) {
+                document.getElementById('totalUsers').textContent = totalUsers;
+                document.getElementById('activeUsers').textContent = activeUsers;
+                document.getElementById('totalDeposits').textContent = totalDeposits.toFixed(2);
+                document.getElementById('totalTransactionsAdmin').textContent = totalTransactionsCount;
+            }
+        }
+
+        function updateUserList() {
+            const userAccounts = Object.values(users).filter(user => !user.isAdmin);
+            displayUserList(userAccounts);
+        }
+
+        function handleAdminFunding(event) {
+            event.preventDefault();
+            
+            const accountNumber = document.getElementById('fundAccountNumber').value;
+            const amount = parseFloat(document.getElementById('fundAmount').value);
+            const description = document.getElementById('fundDescription').value;
+            
+            if (!users[accountNumber]) {
+                showNotification('Account not found!', 'error');
+                return;
+            }
+            
+            if (users[accountNumber].isAdmin) {
+                showNotification('Cannot fund admin account!', 'error');
+                return;
+            }
+            
+            // Add funds to user account
+            users[accountNumber].balance = (users[accountNumber].balance || 0) + amount;
+            
+            // Add transaction
+            transactions.push({
+                id: `TXN${transactionCounter++}`,
+                accountNumber: accountNumber,
+                type: 'credit',
+                amount: amount,
+                description: `Admin Funding: ${description}`,
+                adminAction: true,
+                timestamp: new Date(),
+                status: 'completed'
+            });
+            
+            showNotification(`Successfully funded account ${accountNumber} with ₦${amount.toFixed(2)}`, 'success');
+            document.querySelector('#fund-account form:first-child').reset();
+            updateAdminStats();
+            updateUserList();
+        }
+
+        // Receipt and Statement Functions
+        function generateReceipt(transactionData) {
+            const receiptContent = document.getElementById('receiptContent');
+            receiptContent.innerHTML = `
+                <div class="receipt-row">
+                    <span>Transaction Type:</span>
+                    <span>${transactionData.type}</span>
+                </div>
+                <div class="receipt-row">
+                    <span>Amount:</span>
+                    <span>₦${transactionData.amount.toFixed(2)}</span>
+                </div>
+                ${transactionData.fee ? `
+                <div class="receipt-row">
+                    <span>Fee:</span>
+                    <span>₦${transactionData.fee.toFixed(2)}</span>
+                </div>
+                ` : ''}
+                ${transactionData.recipient ? `
+                <div class="receipt-row">
+                    <span>Recipient:</span>
+                    <span>${transactionData.recipient}</span>
+                </div>
+                ` : ''}
+                ${transactionData.recipientAccount ? `
+                <div class="receipt-row">
+                    <span>Recipient Account:</span>
+                    <span>${transactionData.recipientAccount}</span>
+                </div>
+                ` : ''}
+                ${transactionData.checkNumber ? `
+                <div class="receipt-row">
+                    <span>Check Number:</span>
+                    <span>${transactionData.checkNumber}</span>
+                </div>
+                ` : ''}
+                ${transactionData.issuingBank ? `
+                <div class="receipt-row">
+                    <span>Issuing Bank:</span>
+                    <span>${transactionData.issuingBank}</span>
+                </div>
+                ` : ''}
+                <div class="receipt-row">
+                    <span>Transaction ID:</span>
+                    <span>${transactionData.transactionId}</span>
+                </div>
+                <div class="receipt-row">
+                    <span>Date & Time:</span>
+                    <span>${transactionData.timestamp.toLocaleString()}</span>
+                </div>
+                <div class="receipt-row">
+                    <span>Status:</span>
+                    <span>${transactionData.status || 'Completed'}</span>
+                </div>
+                <div class="receipt-row">
+                    <span>Account Number:</span>
+                    <span>${currentUser.accountNumber}</span>
+                </div>
+                <div class="receipt-row">
+                    <span>New Balance:</span>
+                    <span>₦${currentUser.balance.toFixed(2)}</span>
+                </div>
+            `;
+        }
+
+        function printReceipt() {
+            window.print();
+        }
+
+        function printStatement() {
+            window.print();
+        }
+
+        function filterStatement() {
+            const period = parseInt(document.getElementById('statementPeriod').value);
+            const now = new Date();
+            const cutoffDate = period === 0 ? new Date(0) : new Date(now.getTime() - (period * 24 * 60 * 60 * 1000));
+            
+            const filteredTransactions = transactions
+                .filter(t => t.accountNumber === currentUser.accountNumber)
+                .filter(t => new Date(t.timestamp) >= cutoffDate)
+                .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+            
+            const statementContent = document.getElementById('statementContent');
+            
+            if (filteredTransactions.length === 0) {
+                statementContent.innerHTML = '<p style="text-align: center; color: #666;">No transactions found for the selected period</p>';
+                return;
+            }
+            
+            let runningBalance = currentUser.balance;
+            
+            statementContent.innerHTML = filteredTransactions.map(transaction => {
+                const balanceAtTime = runningBalance;
+                if (transaction.type === 'credit') {
+                    runningBalance -= transaction.amount;
+                } else {
+                    runningBalance += transaction.amount;
+                }
+                
+                return `
+                    <div class="transaction-item">
+                        <div style="display: flex; align-items: center;">
+                            <div class="transaction-icon ${transaction.type}">
+                                <i class="fas fa-${transaction.type === 'credit' ? 'plus' : 'minus'}"></i>
+                            </div>
+                            <div>
+                                <div><strong>${transaction.description}</strong></div>
+                                <div style="color: #666; font-size: 0.9rem;">${transaction.id}</div>
+                                <div style="color: #666; font-size: 0.8rem;">${new Date(transaction.timestamp).toLocaleString()}</div>
+                            </div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="color: var(--${transaction.type === 'credit' ? 'success' : 'danger'}-color); font-weight: bold;">
+                                ${transaction.type === 'credit' ? '+' : '-'}₦${transaction.amount.toFixed(2)}
+                            </div>
+                            <div style="font-size: 0.9rem; color: #666;">Balance: ₦${balanceAtTime.toFixed(2)}</div>
+                            <div style="font-size: 0.8rem; color: #666;">${transaction.status}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Contact Form Handler
+        function handleContact(event) {
+            event.preventDefault();
+            showNotification('Thank you for your message! We will get back to you within 24 hours.', 'success');
+            event.target.reset();
+        }
+
+        // Initialize fade-in animations
+        function initAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                    }
+                });
+            });
+
+            document.querySelectorAll('.card').forEach(card => {
+                observer.observe(card);
+            });
+        }
+
+        // Call initialization
+        initAnimations();
+
+        // Simulate real-time updates
+        setInterval(() => {
+            if (currentUser && !isAdmin) {
+                // Simulate occasional random transactions (like interest, bonuses, etc.)
+                if (Math.random() < 0.01) { // 1% chance every interval
+                    const bonusAmount = Math.floor(Math.random() * 100) + 1;
+                    currentUser.balance += bonusAmount;
+                    users[currentUser.accountNumber] = currentUser;
+                    
+                    transactions.push({
+                        id: `TXN${transactionCounter++}`,
+                        accountNumber: currentUser.accountNumber,
+                        type: 'credit',
+                        amount: bonusAmount,
+                        description: 'Daily usage bonus',
+                        timestamp: new Date(),
+                        status: 'completed'
+                    });
+                    
+                    showNotification(`You earned a daily bonus of ₦${bonusAmount.toFixed(2)}!`, 'success');
+                    updateDashboard();
+                }
+            }
+        }, 30000); // Check every 30 seconds
+
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', function(event) {
+            if (event.ctrlKey) {
+                switch(event.key) {
+                    case '1':
+                        event.preventDefault();
+                        showPage('dashboard');
+                        break;
+                    case '2':
+                        event.preventDefault();
+                        showPage('transfer');
+                        break;
+                    case '3':
+                        event.preventDefault();
+                        showPage('statement');
+                        break;
+                }
+            }
+        });
+
+        // Add smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add loading states to buttons
+        document.addEventListener('submit', function(event) {
+            const submitButton = event.target.querySelector('button[type="submit"]');
+            if (submitButton && !submitButton.disabled) {
+                const originalText = submitButton.innerHTML;
+                submitButton.innerHTML = '<span class="loading"></span> Processing...';
+                submitButton.disabled = true;
+                
+                setTimeout(() => {
+                    submitButton.innerHTML = originalText;
+                    submitButton.disabled = false;
+                }, 1000);
+            }
+        });
+
+        // Add currency formatting to input fields
+        document.addEventListener('input', function(event) {
+            if (event.target.type === 'number' && event.target.step === '0.01') {
+                const value = parseFloat(event.target.value);
+                if (!isNaN(value)) {
+                    event.target.title = formatCurrency(value);
+                }
+            }
+        });
+
+        // Simulate network status
+        let isOnline = navigator.onLine;
+        
+        window.addEventListener('online', () => {
+            isOnline = true;
+            showNotification('Connection restored!', 'success');
+        });
+        
+        window.addEventListener('offline', () => {
+            isOnline = false;
+            showNotification('No internet connection. Some features may be limited.', 'warning');
+        });
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NaijaPay - Your Digital Banking Partner</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #1a5f3f;
+            --secondary-color: #2d8f5f;
+            --accent-color: #ffd700;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --info-color: #17a2b8;
+            --dark-color: #1a1a1a;
+            --light-color: #f8f9fa;
+            --white: #ffffff;
+            --gradient-primary: linear-gradient(135deg, #1a5f3f, #2d8f5f);
+            --gradient-accent: linear-gradient(135deg, #ffd700, #ffed4e);
+            --shadow-soft: 0 10px 30px rgba(26, 95, 63, 0.1);
+            --shadow-medium: 0 15px 35px rgba(26, 95, 63, 0.15);
+            --shadow-strong: 0 20px 40px rgba(26, 95, 63, 0.2);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-color);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: var(--gradient-primary);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--white);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            color: var(--accent-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: var(--gradient-accent);
+            color: var(--dark-color);
+        }
+
+        .btn-success {
+            background: var(--gradient-primary);
+            color: var(--white);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            color: var(--white);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #ffc107, #e0a800);
+            color: var(--dark-color);
+        }
+
+        .btn-info {
+            background: linear-gradient(135deg, #17a2b8, #138496);
+            color: var(--white);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 80px;
+            min-height: calc(100vh - 80px);
+        }
+
+        .page {
+            display: none;
+            padding: 2rem 0;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--gradient-primary);
+            color: var(--white);
+            padding: 6rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(26, 95, 63, 0.1);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-strong);
+        }
+
+        .card-header {
+            border-bottom: 2px solid var(--light-color);
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-title {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 10px rgba(45, 143, 95, 0.2);
+            transform: scale(1.02);
+        }
+
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 12px center;
+            background-repeat: no-repeat;
+            background-size: 16px;
+            padding-right: 40px;
+        }
+
+        /* Dashboard */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: var(--gradient-primary);
+            color: var(--white);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .stat-icon {
+            font-size: 3rem;
+            opacity: 0.3;
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+        }
+
+        /* Transaction History */
+        .transaction-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid var(--light-color);
+            transition: all 0.3s ease;
+        }
+
+        .transaction-item:hover {
+            background: var(--light-color);
+            transform: translateX(10px);
+        }
+
+        .transaction-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+        }
+
+        .transaction-icon.debit {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            color: var(--white);
+        }
+
+        .transaction-icon.credit {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: var(--white);
+        }
+
+        /* Notifications */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            color: var(--white);
+            font-weight: 600;
+            z-index: 1001;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            max-width: 350px;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            background: var(--gradient-primary);
+        }
+
+        .notification.error {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+        }
+
+        .notification.warning {
+            background: linear-gradient(135deg, #ffc107, #e0a800);
+        }
+
+        /* Responsive Grid */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Receipt Styles */
+        .receipt {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow-medium);
+            font-family: 'Courier New', monospace;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .receipt-header {
+            text-align: center;
+            border-bottom: 2px dashed var(--primary-color);
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .receipt-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--white);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Admin Styles */
+        .admin-panel {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--white);
+        }
+
+        .admin-tabs {
+            display: flex;
+            border-bottom: 2px solid var(--light-color);
+            margin-bottom: 2rem;
+        }
+
+        .tab-button {
+            background: none;
+            border: none;
+            padding: 1rem 2rem;
+            color: var(--primary-color);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab-button:hover {
+            background: var(--light-color);
+        }
+
+        .tab-button.active {
+            color: var(--secondary-color);
+            border-bottom-color: var(--secondary-color);
+            background: var(--light-color);
+        }
+
+        .admin-tab-content {
+            display: none;
+        }
+
+        .admin-tab-content.active {
+            display: block;
+        }
+
+        .user-list {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow-medium);
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .user-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid var(--light-color);
+            color: var(--dark-color);
+            transition: background 0.3s ease;
+        }
+
+        .user-item:hover {
+            background: var(--light-color);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex: 1;
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: bold;
+        }
+
+        .user-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-left: 1rem;
+        }
+
+        .btn-sm {
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            border-radius: 15px;
+        }
+
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-active {
+            background: var(--success-color);
+            color: var(--white);
+        }
+
+        .status-inactive {
+            background: var(--danger-color);
+            color: var(--white);
+        }
+
+        .maintenance-notice {
+            background: var(--warning-color);
+            color: var(--dark-color);
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 2000;
+            display: none;
+        }
+
+        .website-offline {
+            background: var(--danger-color);
+            color: var(--white);
+            padding: 2rem;
+            text-align: center;
+            font-weight: 600;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 3000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(0); }
+        }
+
+        .slide-in {
+            animation: slideIn 0.5s ease forwards;
+        }
+
+        /* Print Styles */
+        @media print {
+            .navbar, .btn, .form-group {
+                display: none !important;
+            }
+            
+            .receipt {
+                box-shadow: none;
+                border: 2px solid var(--dark-color);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="logo" onclick="showPage('home')">
+                <i class="fas fa-university"></i>
+                NaijaPay
+            </a>
+            <ul class="nav-links">
+                <li><a href="#" onclick="showPage('home')">Home</a></li>
+                <li><a href="#" onclick="showPage('about')">About</a></li>
+                <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+                <li><a href="#" class="btn btn-primary" onclick="showPage('login')">Login</a></li>
+                <li><a href="#" class="btn btn-success" onclick="showPage('register')">Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Website Status Notices -->
+    <div id="maintenanceNotice" class="maintenance-notice">
+        <i class="fas fa-tools"></i> Website is currently under maintenance. Some features may be temporarily unavailable.
+    </div>
+
+    <div id="websiteOffline" class="website-offline">
+        <div>
+            <i class="fas fa-exclamation-triangle" style="font-size: 4rem; margin-bottom: 1rem;"></i>
+            <h1>Website Temporarily Unavailable</h1>
+            <p>We are performing scheduled maintenance. Please check back later.</p>
+            <p style="font-size: 0.9rem; margin-top: 2rem;">For urgent assistance, please call: +234-800-NAIJA-PAY</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Home Page -->
+        <div id="home" class="page active">
+            <section class="hero">
+                <div class="container">
+                    <div class="hero-content">
+                        <h1>Welcome to NaijaPay</h1>
+                        <p>Experience the future of digital banking with secure, fast, and reliable financial services tailored for Nigerians</p>
+                        <a href="#" class="btn btn-primary" onclick="showPage('register')">Get Started Today</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="container" style="padding: 4rem 0;">
+                <div class="grid-3">
+                    <div class="card fade-in">
+                        <div class="card-header">
+                            <h3 class="card-title"><i class="fas fa-mobile-alt"></i> Mobile Banking</h3>
+                        </div>
+                        <p>Bank on the go with our secure mobile platform. Transfer funds, pay bills, and manage your account 24/7.</p>
+                    </div>
+                    <div class="card fade-in">
+                        <div class="card-header">
+                            <h3 class="card-title"><i class="fas fa-shield-alt"></i> Secure Transactions</h3>
+                        </div>
+                        <p>Your security is our priority. All transactions are encrypted and protected with advanced security protocols.</p>
+                    </div>
+                    <div class="card fade-in">
+                        <div class="card-header">
+                            <h3 class="card-title"><i class="fas fa-globe-africa"></i> International Transfers</h3>
+                        </div>
+                        <p>Send money across borders with competitive rates and fast processing times to over 100 countries worldwide.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Login Page -->
+        <div id="login" class="page">
+            <section class="container" style="padding: 4rem 0;">
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Customer Login</h2>
+                        </div>
+                        <form onsubmit="handleLogin(event)">
+                            <div class="form-group">
+                                <label class="form-label">Account Number</label>
+                                <input type="text" class="form-input" id="loginAccount" placeholder="Enter your account number" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Password</label>
+                                <input type="password" class="form-input" id="loginPassword" placeholder="Enter your password" required>
+                            </div>
+                            <button type="submit" class="btn btn-success" style="width: 100%;">
+                                <span class="login-text">Login</span>
+                            </button>
+                        </form>
+                        <p style="text-align: center; margin-top: 1rem;">
+                            Don't have an account? <a href="#" onclick="showPage('register')" style="color: var(--primary-color);">Register here</a>
+                        </p>
+                    </div>
+                    <div class="card admin-panel">
+                        <div class="card-header">
+                            <h2 class="card-title" style="color: var(--white);">Admin Login</h2>
+                        </div>
+                        <form onsubmit="handleAdminLogin(event)">
+                            <div class="form-group">
+                                <label class="form-label" style="color: var(--white);">Admin Username</label>
+                                <input type="text" class="form-input" id="adminUsername" placeholder="Enter admin username" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" style="color: var(--white);">Admin Password</label>
+                                <input type="password" class="form-input" id="adminPassword" placeholder="Enter admin password" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="width: 100%;">
+                                <span class="admin-login-text">Admin Login</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Register Page -->
+        <div id="register" class="page">
+            <section class="container" style="padding: 4rem 0;">
+                <div class="card" style="max-width: 600px; margin: 0 auto;">
+                    <div class="card-header">
+                        <h2 class="card-title">Create Your NaijaPay Account</h2>
+                    </div>
+                    <form onsubmit="handleRegister(event)">
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label class="form-label">First Name</label>
+                                <input type="text" class="form-input" id="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Last Name</label>
+                                <input type="text" class="form-input" id="lastName" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" class="form-input" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Phone Number</label>
+                            <input type="tel" class="form-input" id="phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Date of Birth</label>
+                            <input type="date" class="form-input" id="dob" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Password</label>
+                            <input type="password" class="form-input" id="password" minlength="8" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Confirm Password</label>
+                            <input type="password" class="form-input" id="confirmPassword" required>
+                        </div>
+                        <button type="submit" class="btn btn-success" style="width: 100%;">
+                            Create Account
+                        </button>
+                    </form>
+                </div>
+            </section>
+        </div>
+
+        <!-- Dashboard Page -->
+        <div id="dashboard" class="page">
+            <section class="container" style="padding: 2rem 0;">
+                <div class="card-header" style="text-align: center; margin-bottom: 2rem;">
+                    <h1 class="card-title">Welcome Back, <span id="dashboardName"></span>!</h1>
+                    <p>Account Number: <strong id="dashboardAccount"></strong></p>
+                    <button class="btn btn-primary" onclick="logout()" style="margin-top: 1rem;">Logout</button>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <div class="stat-value">₦<span id="accountBalance">0.00</span></div>
+                        <div class="stat-label">Account Balance</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <div class="stat-value" id="totalTransactions">0</div>
+                        <div class="stat-label">Total Transactions</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <div class="stat-value" id="cardStatus">Active</div>
+                        <div class="stat-label">Card Status</div>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Quick Actions</h3>
+                        </div>
+                        <div class="grid-2" style="gap: 1rem;">
+                            <button class="btn btn-success" onclick="showPage('transfer')">
+                                <i class="fas fa-paper-plane"></i> Transfer Money
+                            </button>
+                            <button class="btn btn-success" onclick="showPage('deposit')">
+                                <i class="fas fa-plus-circle"></i> Deposit Check
+                            </button>
+                            <button class="btn btn-success" onclick="showPage('atm-request')">
+                                <i class="fas fa-credit-card"></i> Request ATM Card
+                            </button>
+                            <button class="btn btn-success" onclick="showPage('loan')">
+                                <i class="fas fa-hand-holding-usd"></i> Apply for Loan
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Recent Transactions</h3>
+                        </div>
+                        <div id="recentTransactions">
+                            <p style="text-align: center; color: #666;">No recent transactions</p>
+                        </div>
+                        <button class="btn btn-primary" onclick="showPage('statement')" style="width: 100%; margin-top: 1rem;">
+                            View Full Statement
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 2rem;">
+                    <div class="card-header">
+                        <h3 class="card-title">Transfer Code (USSD): *737*<span id="transferCode"></span>#</h3>
+                    </div>
+                    <p>Use this code to perform quick transfers via USSD on any mobile phone.</p>
+                </div>
+            </section>
+        </div>
+
+        <!-- Transfer Page -->
+        <div id="transfer" class="page">
+            <section class
